@@ -1,9 +1,9 @@
 all : keywordfinder keywordfinderV1 verne128.txt
 	
-% : %.c makefile
+% : %.c Makefile
 	gcc -o $@ $<
 
-% : %.cu makefile
+% : %.cu Makefile
 	nvcc -o $@ $< 
 
 verne128.txt : verne.txt

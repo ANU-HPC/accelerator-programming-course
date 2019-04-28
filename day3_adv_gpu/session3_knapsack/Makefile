@@ -9,10 +9,10 @@ all : $(targets)
 % : %.cu Makefile
 	nvcc -o $@ $<
 
-expectedresult.txt : knapsackCPUbig makefile
+expectedresult.txt : knapsackCPUbig Makefile
 	./knapsackCPUbig > expectedresult.txt
 
-test : knapsackCUDAv1  expectedresult.txt makefile
+test : knapsackCUDAv1  expectedresult.txt Makefile
 	./knapsackCUDAv1 | diff -s - expectedresult.txt
 
 clean :

@@ -1,9 +1,9 @@
 all : listprimes
 	
-% : %.c makefile
+% : %.c Makefile
 	gcc -o $@ $< -lOpenCL
 
-% : %.cu makefile
+% : %.cu Makefile
 	nvcc -o $@ $< 
 
 

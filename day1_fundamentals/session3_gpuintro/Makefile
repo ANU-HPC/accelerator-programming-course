@@ -1,9 +1,9 @@
 all : helloworldOpenCL helloworldCUDAv1 helloworldCUDAv2
 	
-% : %.c makefile
+% : %.c Makefile
 	gcc -o $@ $< -lOpenCL
 
-% : %.cu makefile
+% : %.cu Makefile
 	nvcc -o $@ $< 
 
 

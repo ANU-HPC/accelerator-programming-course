@@ -7,7 +7,6 @@
  */
 double dotProduct(double *a, double *b, int N) {
   double dot = 0.0;
-#pragma omp parallel for reduction(+ : dot)
   for (size_t i = 0; i < N; i++) {
     dot += a[i] * b[i];
   }

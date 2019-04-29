@@ -6,7 +6,6 @@
  * c = a + b
  */
 void vectorAdd(double *a, double *b, double *c, int N) {
-#pragma omp parallel for
   for (size_t i = 0; i < N; i++) {
     c[i] = a[i] + b[i];
   }

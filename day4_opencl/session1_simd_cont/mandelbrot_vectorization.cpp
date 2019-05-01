@@ -1,12 +1,12 @@
 /*
  * Copyright 2019 Australian National University
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either or express implied.
@@ -14,14 +14,12 @@
  * limitations under the License.
  */
 
-#include <cassert>
+#include <cmath>
 #include <cstdlib>
 #include <cstring>
-#include <ctime>
 #include <fstream>
 #include <iostream>
 #include <liblsb.h>
-#include <random>
 
 #define CL_USE_DEPRECATED_OPENCL_1_2_APIS
 #ifdef __APPLE__
@@ -37,48 +35,6 @@ inline void except(bool condition, const std::string &error_message = "") {
     throw std::runtime_error(error_message);
 }
 
-inline void zero_payload(float *x, unsigned int size) {
-  for (int i = 0; i < size; i++) {
-    x[i] = 0.0f;
-  }
-}
-
-inline void randomise_payload(float *x, unsigned int size) {
-  std::random_device seed;
-  std::mt19937 gen(seed());
-  std::uniform_int_distribution<int> dist(0, 100);
-
-  for (int i = 0; i < size; i++) {
-    x[i] = dist(gen);
-  }
-}
-
-inline void copy_payload(float *in, float *out, unsigned int size) {
-  for (int i = 0; i < size; i++) {
-    out[i] = in[i];
-  }
-}
-
-bool same_payload(float *in, float *out, unsigned int size) {
-  for (int i = 0; i < size; i++) {
-    if (abs(out[i] - in[i]) > EPSILON) {
-      return false;
-    }
-  }
-  return true;
-}
-
-bool different_payload(float *in, float *out, unsigned int size) {
-  return (!(same_payload(in, out, size)));
-}
-
-inline void print_payload(float *x, unsigned int size) {
-  for (int i = 0; i < size; i++) {
-    std::cout << x[i] << ' ';
-  }
-  std::cout << std::endl;
-}
-
 inline void print_payload_as_integer(int *x, unsigned int size) {
   for (int i = 0; i < size; i++) {
     std::cout << x[i] << ' ';
@@ -89,8 +45,8 @@ inline void print_payload_as_integer(int *x, unsigned int size) {
 inline void write_matrix_to_file(int *mat, unsigned int x, unsigned int y, std::string filename) {
   std::ofstream myfile;
   myfile.open(filename);
-  for (int i = 0; i < y; i++) {       //rows
-    for (int j = 0; j < x - 1; j++) { //cols
+  for (int i = 0; i < y; i++) {       // rows
+    for (int j = 0; j < x - 1; j++) { // cols
       myfile << mat[i * x + j] << ',';
     }
     myfile << mat[i * x + x] << '\n';
@@ -105,7 +61,6 @@ inline void zero_payload_as_integer(int *x, unsigned int size) {
 }
 
 int main(int argc, char **argv) {
-
   except(argc == 3, "./mandelbrot <platform id> <device id>");
   const char *synthetic_kernel_path = "./mandelbrot_vectorization_kernel.cl";
   int platform_id = atoi(argv[1]);

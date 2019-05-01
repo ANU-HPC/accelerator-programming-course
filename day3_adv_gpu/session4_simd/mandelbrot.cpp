@@ -14,62 +14,18 @@
  * limitations under the License.
  */
 
-#include <cassert>
 #include <cstdlib>
 #include <cstring>
-#include <ctime>
+#include <cmath>
 #include <fstream>
 #include <iostream>
 #include <liblsb.h>
-#include <random>
 
 const float EPSILON = 0.00001f;
 
 inline void except(bool condition, const std::string &error_message = "") {
   if (!condition)
     throw std::runtime_error(error_message);
-}
-
-inline void zero_payload(float *x, unsigned int size) {
-  for (int i = 0; i < size; i++) {
-    x[i] = 0.0f;
-  }
-}
-
-inline void randomise_payload(float *x, unsigned int size) {
-  std::random_device seed;
-  std::mt19937 gen(seed());
-  std::uniform_int_distribution<int> dist(0, 100);
-
-  for (int i = 0; i < size; i++) {
-    x[i] = dist(gen);
-  }
-}
-
-inline void copy_payload(float *in, float *out, unsigned int size) {
-  for (int i = 0; i < size; i++) {
-    out[i] = in[i];
-  }
-}
-
-bool same_payload(float *in, float *out, unsigned int size) {
-  for (int i = 0; i < size; i++) {
-    if (abs(out[i] - in[i]) > EPSILON) {
-      return false;
-    }
-  }
-  return true;
-}
-
-bool different_payload(float *in, float *out, unsigned int size) {
-  return (!(same_payload(in, out, size)));
-}
-
-inline void print_payload(float *x, unsigned int size) {
-  for (int i = 0; i < size; i++) {
-    std::cout << x[i] << ' ';
-  }
-  std::cout << std::endl;
 }
 
 inline void print_payload_as_integer(int *x, unsigned int size) {

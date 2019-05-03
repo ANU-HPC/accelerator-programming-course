@@ -1,4 +1,20 @@
 /*
+ * Copyright 2019 Australian National University
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either or express implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*
  * matrixMult - a simple program to multiply a matix with a vector. 
  * Eric McCreath 2019 GPL
  */
@@ -21,7 +37,7 @@ inline void gpucheck(cudaError_t code, const char *file, int line) {
   }
 }
 
-// TODO: modify this sequential implementation to implement a parallel reduce 
+// TODO: modify this sequential implementation to implement a parallel reduce
 __global__ void matrixMultiple(float *m, float *v1, float *v2, int n) {
   for (int row = 0; row < n; row++) {
     float sum = 0.0f;

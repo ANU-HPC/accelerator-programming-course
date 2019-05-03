@@ -1,6 +1,9 @@
 Accelerator Programming for High Performance Computing: Lab Exercises
 ---------------------------------------------------------------------------------
 
+# Acknowledgement
+
+Portions of this course are taken from the 'Advanced HandsOnOpenCL' course developed by the High Performance Computing Group at the University of Bristol. Contributors include Simon McIntosh-Smith, James Price, Tom Deakin and Mike O'Connor.
 
 # Installation
 
